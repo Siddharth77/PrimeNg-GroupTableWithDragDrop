@@ -1,0 +1,58 @@
+<hello name="{{ name }}"></hello>
+<!-- <p>
+  Start editing to see some magic happen :)
+</p> -->
+<div class="content-section implementation">
+  <div class="card">
+    <h5>Drag-Drop to Table</h5>
+    <div class="p-grid">
+      <div class="p-col-12 p-md-12">
+        <h6>Master</h6>
+        <p-table [value]="availableProducts" dataKey="id" [reorderableColumns]="true">
+          <ng-template p-template="header">
+            <tr>
+              <th style="width:3rem"></th>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Name</th>
+              <th>Price</th>
+            </tr>
+          </ng-template>
+          <ng-template p-template="body" let-product let-index="rowIndex" let-expanded="expanded">
+            <tr *ngIf="product.id===-1" [pReorderableRow]="index" (dragstart)="onDragStart($event)"
+              (dragged)="onDragEnd($event)">
+              <td>
+                <span class="pi pi-bars"[pReorderableRowHandle]="index"></span>
+              </td>
+              <td>{{product.id}}</td>
+              <td>{{product.category}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.price}}</td>
+            </tr>
+            <tr *ngIf="product.id===-1 && rowGroupMetadata[product.id] && rowGroupMetadata[product.id].index === index">
+              <td [attr.colspan]="5">
+                <button type="button" pButton pRipple [pRowToggler]="product"
+                  class="p-button-text p-button-plain p-mr-2" [icon]="expanded ? 'pi pi-minus' : 'pi pi-plus'"></button>
+                <span class="p-text-bold p-ml-2">{{product.id}}</span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template p-template="rowexpansion" let-product let-index="rowIndex">
+            <tr pReorderableRow]="index" (dragstart)="onDragStart($event)" (dragged)="onDragEnd($event)">
+              <td>
+                <span class="pi pi-bars" [pReorderableRowHandle]="index"></span>
+              </td>
+              <td>{{product.id}}</td>
+              <td>{{product.category}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.price}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div *ngIf="availbleProducts?.length===0">
+          No values to display here
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
